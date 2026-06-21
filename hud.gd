@@ -105,11 +105,11 @@ func hide_powerup_menu() -> void:
 	ripValue.visible = true
 	current_rads_label.visible = true
 
-var powerup_every: int = 10
+var powerup_every: int = 5
 @onready var killed_label : Label = $KilledLabel
 func blades_killed(amount: int) -> void:
 	killed_label.text = "Blades \nKilled:%d" % amount
-	if amount % powerup_every == 0:
+	if amount % powerup_every == 0 and not dead:
 		show_powerup_menu()
 
 func _on_powerup_1_pressed() -> void:

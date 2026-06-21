@@ -45,6 +45,7 @@ func _on_body_entered(body: Node) -> void:
 	if body is Enemy and not immunity:
 		var diff = angular_velocity - body.angular_velocity
 		if diff > 50:
+			angular_velocity *= 1.25
 			body.kill()
 		elif diff < -50:
 			hit_by_enemy()

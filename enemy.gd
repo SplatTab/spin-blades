@@ -17,6 +17,7 @@ func kill() -> void:
 	Global.EnemySpawner.enemy_killed()
 	queue_free()
 
+var flash = false
 func _physics_process(_delta):	
 	if not Global.PlayerBlade:
 		kill()
@@ -24,7 +25,7 @@ func _physics_process(_delta):
 	if not can_rip: return
 
 	if angular_velocity - faster_than_to_attack < Global.PlayerBlade.angular_velocity:
-		sprite.material.set_shader_parameter("replace_color", Color.DARK_RED)
+		sprite.material.set_shader_parameter("replace_color", Color.ORANGE_RED)
 		target_direction_node.visible = false
 		target_direction = Vector2.ZERO
 		linear_velocity = Vector2.ZERO
