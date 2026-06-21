@@ -66,15 +66,16 @@ func _physics_process(_delta) -> void:
 
 var rads_per_rip: int = 100
 @onready var ripValue : Label = $RipValue
-func updateRadsPerRip() -> void:
-	print("updating rads per rip by %d" % rads_per_rip)
-	ripper.max_value += rads_per_rip
+func updateRadsPerRip(amount: int) -> void:
+	ripper.max_value += amount
 	ripValue.text = str(int(ripper.max_value))
-	rads_per_rip = 25 * randi_range(4, 10)
 
 var choiceOptions: Dictionary = {
-	"Increase rip power\n\n+%d RAD/s per rip" % rads_per_rip: func() -> void: updateRadsPerRip(), 
+	"Increase rip power\n\n+%d RAD/s per rip" % 100: func() -> void: updateRadsPerRip(100), 
+	"Increase rip power\n\n+%d RAD/s per rip" % 125: func() -> void: updateRadsPerRip(125),
+	"Increase rip power\n\n+%d RAD/s per rip" % 150: func() -> void: updateRadsPerRip(150),
 	"heal one heart\n\n+1 HEART": func() -> void: heal_hp(),
+	"decrease rad/s lost\n\n- 0.01 damp": func() -> void: Global.PlayerBlade.angular_damp -= -.01,
 	"decrease rad/s lost\n\n- 0.02 damp": func() -> void: Global.PlayerBlade.angular_damp -= -.02,
 }
 var randomOption1 = null
