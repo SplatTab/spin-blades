@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://c4stcg7eql7m1"]
+
+[ext_resource type="Texture2D" uid="uid://ceik333sjovdo" path="res://explosion-png-images-explosion-11563569716vb1n5shcac.png" id="1_j4sxf"]
+[ext_resource type="Script" uid="uid://e7d58mfwwihd" path="res://explosion.gd" id="2_m5xho"]
+[ext_resource type="AudioStream" uid="uid://bjji1eypkf8ul" path="res://soundreality-explosion-fx-343683.mp3" id="3_kmxf7"]
+
+[sub_resource type="Curve" id="Curve_n068f"]
+_data = [Vector2(0, 0.37078655), 0.0, 0.0, 0, 0, Vector2(0.38947368, 1), 0.3370792, 0.3370792, 0, 0, Vector2(0.6789473, 1), 0.0, 0.0, 0, 0, Vector2(0.76315784, 0.49438208), 0.0, 0.0, 0, 0, Vector2(1, 0.1460675), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[node name="Explosion" type="CPUParticles2D" unique_id=1593414901]
+z_index = 5
+emitting = false
+amount = 7
+texture = ExtResource("1_j4sxf")
+lifetime = 0.23
+one_shot = true
+explosiveness = 1.0
+randomness = 0.3
+emission_shape = 6
+emission_ring_inner_radius = 0.8
+emission_ring_radius = 1.0
+spread = 180.0
+gravity = Vector2(0, -75)
+initial_velocity_min = 15.0
+initial_velocity_max = 100.0
+scale_amount_min = 0.01
+scale_amount_max = 0.12
+scale_amount_curve = SubResource("Curve_n068f")
+script = ExtResource("2_m5xho")
+
+[node name="BoomSound" type="AudioStreamPlayer" parent="." unique_id=543260941]
+stream = ExtResource("3_kmxf7")
+volume_db = -10.0
+autoplay = true
+
+[connection signal="finished" from="BoomSound" to="." method="queue_free"]

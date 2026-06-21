@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cqurfxyf1lpx"]
+
+[ext_resource type="Script" uid="uid://d2mix3h7tkddw" path="res://player.gd" id="1_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://dowsvbpg6wmb2" path="res://target_arrow.png" id="2_hqtel"]
+[ext_resource type="AudioStream" uid="uid://0slr6a6ee8ud" path="res://thump.wav" id="3_sweqy"]
+[ext_resource type="AudioStream" uid="uid://cinnmfrkspgoo" path="res://hurtsound.mp3" id="4_hqtel"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h0wof"]
+load_path = "res://.godot/imported/dragonblade.png-f88ee0a906387d4df5bafd15bd15ad8a.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35c7g"]
+atlas = SubResource("CompressedTexture2D_h0wof")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_444vf"]
+radius = 14.0
+
+[node name="PlayerBlade" type="RigidBody2D" unique_id=135423097]
+texture_filter = 3
+gravity_scale = 0.0
+continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 3
+angular_damp_mode = 1
+angular_damp = 0.2
+script = ExtResource("1_i3pqv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1270805555]
+z_index = 1
+texture_filter = 1
+texture = SubResource("AtlasTexture_35c7g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1358242044]
+z_index = 2
+shape = SubResource("CircleShape2D_444vf")
+
+[node name="TargetDirection" type="Node2D" parent="." unique_id=570444322]
+visible = false
+top_level = true
+
+[node name="Sprite2D" type="Sprite2D" parent="TargetDirection" unique_id=787049216]
+modulate = Color(1, 0.13725491, 0, 1)
+position = Vector2(26.5, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hqtel")
+
+[node name="ThumpSound" type="AudioStreamPlayer" parent="." unique_id=868807709]
+stream = ExtResource("3_sweqy")
+volume_db = 15.0
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="." unique_id=725705547]
+stream = ExtResource("4_hqtel")
+volume_db = 24.0
+pitch_scale = 0.85
+
+[node name="ImmunityTimer" type="Timer" parent="." unique_id=108860388]
+wait_time = 1.5
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="ImmunityTimer" to="." method="_on_immunity_timer_timeout"]

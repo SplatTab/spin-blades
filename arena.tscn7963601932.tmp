@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://cfvy1gliocmr8"]
+
+[ext_resource type="Texture2D" uid="uid://b12ml8xbqks7c" path="res://arena-Sheet.png" id="1_ubfh8"]
+[ext_resource type="Script" uid="uid://5eei253r8ivs" path="res://blade.gd" id="2_27ga2"]
+[ext_resource type="Texture2D" uid="uid://dkfhy8pstu1am" path="res://dragonblade.png" id="2_444vf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_444vf"]
+atlas = ExtResource("1_ubfh8")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27ga2"]
+atlas = ExtResource("1_ubfh8")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0wof"]
+atlas = ExtResource("1_ubfh8")
+region = Rect2(1280, 0, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fu4bq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_444vf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27ga2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0wof")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_444vf"]
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_444vf"]
+radius = 14.0
+
+[sub_resource type="Gradient" id="Gradient_ubfh8"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_444vf"]
+gradient = SubResource("Gradient_ubfh8")
+width = 640
+height = 360
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fu4bq"]
+atlas = ExtResource("1_ubfh8")
+region = Rect2(0, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbb53"]
+atlas = ExtResource("1_ubfh8")
+region = Rect2(640, 360, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbtuc"]
+atlas = ExtResource("1_ubfh8")
+region = Rect2(1280, 360, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yokb4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fu4bq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbb53")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbtuc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yokb4"]
+atlas = ExtResource("1_ubfh8")
+region = Rect2(0, 720, 640, 360)
+
+[node name="Arena" type="AnimatedSprite2D" unique_id=387781259]
+z_index = -10
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_fu4bq")
+frame = 1
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=842286010]
+texture_filter = 3
+mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_444vf")
+gravity_scale = 0.0
+linear_velocity = Vector2(25, 0)
+script = ExtResource("2_27ga2")
+BASE_SPEED = null
+MAX_SPEED = null
+
+[node name="Dragonblade" type="Sprite2D" parent="RigidBody2D" unique_id=1916542163]
+z_index = 1
+texture_filter = 1
+texture = ExtResource("2_444vf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=536577646]
+z_index = 2
+shape = SubResource("CircleShape2D_444vf")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1516812354]
+process_callback = 0
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=148024362]
+color = Color(0, 0, 0, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=72335623]
+energy = 1.3
+texture = SubResource("GradientTexture2D_444vf")
+
+[node name="Fans" type="AnimatedSprite2D" parent="." unique_id=1208924932]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_yokb4")
+frame_progress = 0.6273499
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=362873231]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1245084050]
+scale = Vector2(1.1165624, 1.1165624)
+build_mode = 1
+polygon = PackedVector2Array(-20, -146, -20, -145, -33.100006, -144, -50.100006, -144, -73.2, -139, -82.2, -139, -98.3, -134, -103.3, -134, -106.3, -132, -110.3, -132, -113.3, -130, -121.2, -130, -131.2, -126, -136.4, -126, -138, -124.4, -138, -123.8, -142, -122.8, -142, -121.7, -144, -121, -148.4, -121, -150, -119.4, -152.3, -119, -159.3, -115, -162.4, -115, -164, -113.4, -164, -112.6, -165.2, -112, -168.4, -112, -170.4, -110, -173, -110, -173, -107.6, -174.2, -107, -177.2, -107, -182, -104.6, -182, -102.6, -183.2, -102, -186.4, -102, -188, -100.4, -188, -99.7, -194.2, -97, -197, -97, -197, -94.6, -198.2, -94, -200.4, -94, -205.4, -89, -208, -89, -208, -87, -209.7, -87, -210.7, -84, -213.6, -84, -215.6, -80, -219, -80, -219, -77.4, -221.4, -75, -224, -75, -224, -72.4, -226.4, -70, -228.6, -70, -230.6, -66, -234, -66, -234, -62.6, -236.3, -61, -237.6, -61, -240.6, -55, -242, -55, -242, -50.399994, -242.4, -50, -244, -50, -244, -48, -245.6, -48, -247, -45.199997, -247, -42.399994, -250.6, -36, -251.7, -36, -255.8, -23, -256.9, -23, -257.9, -10, -259, -10, -259, 8.199997, -257, 14, -257, 21.199997, -252, 31.199997, -252, 34.300003, -249.5, 38, -248.6, 38, -246, 44.100006, -246, 47, -244, 47, -244, 48.600006, -242, 49.600006, -242, 53.399994, -238, 57.399994, -238, 59.600006, -234, 61.600006, -234, 65, -230.4, 65, -229, 66.399994, -229, 69, -226.4, 69, -224, 71.399994, -224, 74, -221.4, 74, -219, 76.399994, -219, 79, -215.5, 79, -214, 81.29999, -214, 83, -210.4, 83, -210, 83.399994, -210, 86, -208, 86, -208, 87.600006, -201, 91.600006, -201, 92.79999, -197, 93.79999, -197, 95.600006, -194.2, 97, -191.3, 97, -187, 99.600006, -187, 100.79999, -182, 101.79999, -182, 103.70001, -173, 106.600006, -173, 108.70001, -163, 112.600006, -163, 113.70001, -159.2, 115, -156.2, 115, -149, 118.600006, -149, 120, -144.2, 120, -137, 123.600006, -137, 125, -131.3, 125, -122, 127.70001, -122, 129, -113, 129, -111, 129.6, -111, 130.9, -104, 131.79999, -104, 132.79999, -83, 136.79999, -83, 138, -73.2, 138, -64, 139.79999, -64, 141, -58, 141, -58, 141.9, -19, 145, 19.100006, 145, 33.100006, 143, 50.100006, 143, 63.200012, 140, 69.20001, 140, 73.20001, 138, 82.20001, 138, 98.29999, 133, 103.29999, 133, 106.29999, 131, 110.29999, 131, 113.29999, 129, 121.20001, 129, 131.20001, 125, 136.4, 125, 138, 123.399994, 138, 122.79999, 142, 121.79999, 142, 120.600006, 144, 120, 148.4, 120, 150, 118.399994, 152.29999, 118, 159.29999, 114, 162.4, 114, 164, 112.399994, 164, 111.600006, 165.20001, 111, 168.4, 111, 170.4, 109, 173, 109, 173, 106.600006, 174.20001, 106, 177.20001, 106, 182, 103.600006, 182, 101.600006, 183.20001, 101, 186.4, 101, 188, 99.399994, 188, 98.600006, 194.20001, 96, 197, 96, 197, 93.600006, 198.20001, 93, 200.59998, 93, 201.59998, 91, 203.5, 91, 205.5, 88, 208, 88, 208, 86, 209.70001, 86, 210.70001, 83, 213.59998, 83, 215.59998, 79, 218.40002, 79, 220, 77.399994, 220, 75.399994, 221.40002, 74, 224, 74, 224, 71.399994, 226.40002, 69, 228.59998, 69, 230.59998, 65, 234, 65, 234, 61.5, 236.29999, 60, 237.59998, 60, 240.59998, 54, 242, 54, 242, 49.399994, 242.40002, 49, 244, 49, 244, 47, 245.59998, 47, 247, 44.199997, 247, 41.300003, 249.59998, 37, 250.70001, 37, 253.70001, 28, 254.79999, 28, 255.90002, 22, 256.90002, 22, 257.90002, 9, 259, 9, 259, -9.199997, 257, -15, 257, -22.199997, 252, -32.199997, 252, -35.300003, 249.5, -39, 248.59998, -39, 246, -45.199997, 246, -48, 244, -48, 244, -49.600006, 242, -50.600006, 242, -54.4, 238, -58.4, 238, -60.6, 234, -62.6, 234, -66, 230.40002, -66, 229, -67.4, 229, -70, 226.40002, -70, 224, -72.4, 224, -75, 221.5, -75, 219, -78.4, 219, -80, 215.5, -80, 214, -82.3, 214, -84, 210.40002, -84, 210, -84.4, 210, -87, 208, -87, 208, -88.6, 201, -92.7, 201, -93.8, 197, -94.8, 197, -96.6, 194.20001, -98, 191.29999, -98, 187, -100.6, 187, -101.8, 182, -102.9, 182, -104.7, 173, -107.7, 173, -109.7, 163, -113.7, 163, -114.7, 159.20001, -116, 156.20001, -116, 149, -119.6, 149, -121, 144.20001, -121, 137, -124.6, 137, -126, 131.29999, -126, 122, -128.8, 122, -130, 113, -130, 111, -130.7, 111, -131.9, 104, -132.9, 104, -133.8, 83, -137.9, 83, -139, 73.20001, -139, 70, -139.8, 70, -140.9, 51, -143, 51, -144, 20, -145, 20, -146)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=303816481]
+texture = SubResource("AtlasTexture_yokb4")

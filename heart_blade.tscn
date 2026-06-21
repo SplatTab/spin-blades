@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://b8ih3ord6mrtr"]
+
+[ext_resource type="Script" uid="uid://cmxdyh8fvrry1" path="res://enemy.gd" id="1_cqbnr"]
+[ext_resource type="Shader" uid="uid://nrobi7qnsaxa" path="res://color_swap_white.gdshader" id="2_avhh6"]
+[ext_resource type="Texture2D" uid="uid://dvk0ycxwnqeju" path="res://heartblade-Sheet.png" id="3_ai1cb"]
+[ext_resource type="Texture2D" uid="uid://dowsvbpg6wmb2" path="res://target_arrow.png" id="4_yow3n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n068f"]
+shader = ExtResource("2_avhh6")
+shader_parameter/replace_color = Color(1, 0, 0, 1)
+shader_parameter/tolerance = 0.05
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u834y"]
+atlas = ExtResource("3_ai1cb")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_444vf"]
+radius = 14.0
+
+[node name="HeartBlade" type="RigidBody2D" unique_id=182784170]
+texture_filter = 3
+gravity_scale = 0.0
+continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 1
+angular_damp_mode = 1
+angular_damp = 0.2
+script = ExtResource("1_cqbnr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=673634610]
+z_index = 1
+texture_filter = 1
+material = SubResource("ShaderMaterial_n068f")
+texture = SubResource("AtlasTexture_u834y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=787010007]
+z_index = 2
+shape = SubResource("CircleShape2D_444vf")
+
+[node name="TargetDirection" type="Node2D" parent="." unique_id=1056574331]
+visible = false
+top_level = true
+
+[node name="Sprite2D" type="Sprite2D" parent="TargetDirection" unique_id=637287236]
+modulate = Color(1, 0.13725491, 0, 1)
+position = Vector2(26.5, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_yow3n")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
